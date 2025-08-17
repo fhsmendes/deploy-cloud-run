@@ -1,35 +1,68 @@
-# deploy-cloud-run
-Desafio fullcycle - Deploy no Google Cloud Run
+# Desafio Fullcycle - Deploy no Google Cloud Run
 
-Objetivo: Desenvolver um sistema em Go que receba um CEP, identifica a cidade e retorna o clima atual (temperatura em graus celsius, fahrenheit e kelvin). Esse sistema deverá ser publicado no Google Cloud Run.
+## Objetivo
+Desenvolver um sistema em Go que receba um CEP, identifica a cidade e retorna o clima atual (temperatura em graus Celsius, Fahrenheit e Kelvin). Esse sistema deverá ser publicado no Google Cloud Run.
 
-Requisitos:
+## Requisitos
 
-O sistema deve receber um CEP válido de 8 digitos
-O sistema deve realizar a pesquisa do CEP e encontrar o nome da localização, a partir disso, deverá retornar as temperaturas e formata-lás em: Celsius, Fahrenheit, Kelvin.
-O sistema deve responder adequadamente nos seguintes cenários:
-Em caso de sucesso:
-Código HTTP: 200
-Response Body: { "temp_C": 28.5, "temp_F": 28.5, "temp_K": 28.5 }
-Em caso de falha, caso o CEP não seja válido (com formato correto):
-Código HTTP: 422
-Mensagem: invalid zipcode
-​​​Em caso de falha, caso o CEP não seja encontrado:
-Código HTTP: 404
-Mensagem: can not find zipcode
-Deverá ser realizado o deploy no Google Cloud Run.
-Dicas:
+- O sistema deve receber um CEP válido de 8 dígitos
+- O sistema deve realizar a pesquisa do CEP e encontrar o nome da localização, a partir disso, deverá retornar as temperaturas e formatá-las em: Celsius, Fahrenheit, Kelvin.
+- O sistema deve responder adequadamente nos seguintes cenários:
+	- **Sucesso:**
+		- Código HTTP: 200
+		- Response Body: `{ "temp_C": 28.5, "temp_F": 28.5, "temp_K": 28.5 }`
+	- **CEP inválido (formato incorreto):**
+		- Código HTTP: 422
+		- Mensagem: `invalid zipcode`
+	- **CEP não encontrado:**
+		- Código HTTP: 404
+		- Mensagem: `can not find zipcode`
+- O deploy deve ser realizado no Google Cloud Run.
 
-Utilize a API viaCEP (ou similar) para encontrar a localização que deseja consultar a temperatura: https://viacep.com.br/
-Utilize a API WeatherAPI (ou similar) para consultar as temperaturas desejadas: https://www.weatherapi.com/
-Para realizar a conversão de Celsius para Fahrenheit, utilize a seguinte fórmula: F = C * 1,8 + 32
-Para realizar a conversão de Celsius para Kelvin, utilize a seguinte fórmula: K = C + 273
-Sendo F = Fahrenheit
-Sendo C = Celsius
-Sendo K = Kelvin
-Entrega:
+### Dicas
+- Utilize a API [viaCEP](https://viacep.com.br/) para encontrar a localização.
+- Utilize a API [WeatherAPI](https://www.weatherapi.com/) para consultar as temperaturas.
+- Conversão de Celsius para Fahrenheit: `F = C * 1,8 + 32`
+- Conversão de Celsius para Kelvin: `K = C + 273`
 
-O código-fonte completo da implementação.
-Testes automatizados demonstrando o funcionamento.
-Utilize docker/docker-compose para que possamos realizar os testes de sua aplicação.
-Deploy realizado no Google Cloud Run (free tier) e endereço ativo para ser acessado
+### Entrega
+- Código-fonte completo da implementação.
+- Testes automatizados demonstrando o funcionamento.
+- Utilize docker/docker-compose para facilitar os testes da aplicação.
+- Deploy realizado no Google Cloud Run (free tier) e endereço ativo para acesso.
+
+---
+
+## Como clonar e rodar a aplicação
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/fhsmendes/deploy-cloud-run.git
+cd deploy-cloud-run
+```
+
+### 2. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` ou exporte as variáveis necessárias, por exemplo:
+
+```bash
+export APIKeyWeather=SEU_API_KEY_WEATHERAPI
+```
+
+### 3. Build e execute com Docker
+
+```bash
+docker build -t deploy-cloud-run .
+docker run -p 8080:8080 --env APIKeyWeather=SEU_API_KEY_WEATHERAPI deploy-cloud-run
+```
+
+### 4. Rodando os testes
+
+```bash
+go test -v -cover ./...
+```
+
+### 5. Deploy no Google Cloud Run
+
+Siga as instruções do Google Cloud para deploy de containers.
