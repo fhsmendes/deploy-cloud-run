@@ -63,6 +63,11 @@ docker run -p 8080:8080 --env APIKeyWeather=SEU_API_KEY_WEATHERAPI deploy-cloud-
 go test -v -cover ./...
 ```
 
-### 5. Deploy no Google Cloud Run
+### 5. Teste via cloud RUN
 
-Siga as instruções do Google Cloud para deploy de containers.
+```
+
+Você pode testar a aplicação com o seguinte comando, substituindo o CEP se desejar:
+
+```bash
+curl "https://deploy-cloud-run-237512667039.us-central1.run.app/temperature?cep=01001000"
